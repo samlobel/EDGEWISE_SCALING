@@ -25,7 +25,7 @@ z_dim = 50
 # random uniform seed
 z = tf.random_uniform((batch_size, z_dim))
 
-with tf.sg_context(name='generator', size=4, stride=2, act='relu', bn=True, batch_size=batch_size):
+with tf.sg_context(name='generator', size=5, stride=2, act='relu', bn=True, batch_size=batch_size):
     # generator network
     gen = (z.sg_dense(dim=1024)
            .sg_dense(dim=7*7*128)

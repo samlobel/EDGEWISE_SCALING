@@ -16,6 +16,7 @@ def make_scaling_matrix_for_conv(input_shape, filter_shape, strides, padding='SA
   FILTER_ONES = np.ones(filter_shape, dtype=np.float32)
   output = tf.nn.conv2d(INPUT_ONES, FILTER_ONES, strides=strides, padding=padding)
   output = tf.div(output, tf.reduce_mean(output))
+  output = tf.sqrt(output)
   output = tf.div(1.0, output)
   return output
   # max_output = tf.reduce_max(output)
@@ -27,14 +28,14 @@ def make_scaling_matrix_for_conv_transpose(input_shape, filter_shape, output_sha
   INPUT_ONES = np.ones(input_shape, dtype=np.float32)
   FILTER_ONES = np.ones(filter_shape, dtype=np.float32)
   output = tf.nn.conv2d_transpose(INPUT_ONES, FILTER_ONES, output_shape=output_shape, strides=strides, padding=padding)
+  output = tf.sqrt(output)
+  output = tf.div(output, tf.reduce_mean(output))
+  output = tf.div(1.0, output)
+  return output
   # max_output = tf.reduce_max(output)
   # norm_output = tf.div(output, max_output)
   # inv_norm_output = tf.div(1.0, norm_output)
   # return inv_norm_output
-  output = tf.div(output, tf.reduce_mean(output))
-  output = tf.div(1.0, output)
-  return output  
-
 
 @tf.sg_layer_func
 def sg_conv_with_scale(tensor, opt):
@@ -224,7 +225,7 @@ def plot_images(imgs, filename=None):
           ax[i][j].imshow(imgs[i * num_per_square + j], 'gray')
           ax[i][j].set_axis_off()
   filename=filename or get_next_filename()
-  plt.savefig(filename, dpi=200)
+  plt.savefig(filename, dpi=600)
   tf.sg_info('Sample image saved to "{}"'.format(filename))
   plt.close()
 

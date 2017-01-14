@@ -37,7 +37,7 @@ x = data.train.image
 # random uniform seed
 z = tf.random_uniform((batch_size, z_dim))
 
-with tf.sg_context(name='generator', size=4, stride=2, act='relu', bn=True, batch_size=batch_size):
+with tf.sg_context(name='generator', size=5, stride=2, act='relu', bn=True, batch_size=batch_size):
 
     # generator network
     gen = (z.sg_dense(dim=1024)
@@ -53,7 +53,7 @@ with tf.sg_context(name='generator', size=4, stride=2, act='relu', bn=True, batc
 # create real + fake image input
 xx = tf.concat(0, [x, gen])
 
-with tf.sg_context(name='discriminator', size=4, stride=2, act='leaky_relu', batch_size=disc_batch_size):
+with tf.sg_context(name='discriminator', size=5, stride=2, act='leaky_relu', batch_size=disc_batch_size):
     disc = (xx.sg_conv_with_scale(dim=64)
             .sg_conv_with_scale(dim=128)
             .sg_upconv_with_scale(dim=64)
