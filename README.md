@@ -26,14 +26,14 @@ ___
 ___
 
 ## Proof of concept
-Here are side-by-side images, taken right after initialization. One is of a vanilla Deep CNN, and one is with the scaling
+Here are side-by-side images, taken right after initialization. One is of a vanilla Deep CNN, and one is with the scaling. It's pretty subtle, but you can see that the corners on the unscaled one are more 'greywashed' than with the scaling operation.
 
 __SCALED__
 ![12](./WRITEUP/scaled.png)
 __UNSCALED__
 ![12](./WRITEUP/unscaled.png)
 
-It's pretty subtle, but you can see that the corners on the unscaled one are more 'greywashed' than with the scaling operation
+
 
 Finally, a little proof that this method can train to generate good pictures. Six epochs later, with a scaled-DCGAN:
 ![12](./WRITEUP/6_EPOCHS_IN_MINE.png)
